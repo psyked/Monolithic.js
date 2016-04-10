@@ -6,7 +6,6 @@ var escodegen = require('escodegen');
 // var functionExtractor = require("./function-parser");
 var _ = require('underscore');
 var walk = require('esprima-walk').walkAddParent;
-var cycle = require('../cycle');
 
 // function clone(obj) {
 //     var target = {};
@@ -27,6 +26,7 @@ var cycle = require('../cycle');
 //     });
 //     return target;
 // }
+var cycle = require('cycle');
 
 module.exports = function extractClasses(code) {
     // var code = esprima.parse(inputString, {
