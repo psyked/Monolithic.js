@@ -1,0 +1,19 @@
+{
+  "name": "MonolithicJS",
+  "version": "0.0.1",
+  "description": "Making Monolithic code managable",
+  "main": "scripts/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Ford",
+  "license": "ISC",
+  "private": true,
+  "devDependencies": {
+    "escodegen": "^1.8.0",
+    "esprima": "^2.7.2",
+    "esprima-walk": "psyked/esprima-walk",
+    "mkdirp": "^0.5.1",
+    "underscore": "^1.8.3"
+  }
+}
