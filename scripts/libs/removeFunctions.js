@@ -3,7 +3,6 @@ var path = require('path');
 var mkdirp = require('mkdirp');
 var esprima = require('esprima');
 var escodegen = require('escodegen');
-// var functionExtractor = require("./function-parser");
 var _ = require('underscore');
 var walk = require('esprima-walk').walkAddParent;
 

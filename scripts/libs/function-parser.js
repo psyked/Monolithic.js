@@ -1,20 +1,9 @@
 var walk = require('esprima-walk').walkAddParent;
 var _ = require('underscore');
 
-function clone(obj) {
-  var target = {};
-  for (var i in obj) {
-    if (obj.hasOwnProperty(i)) {
-      target[i] = obj[i];
-    }
-  }
-  return target;
-}
-
 (function() {
   var util = require('util'),
       esprima = require('esprima'),
-      // lastVariableName = '',
 
   traverse = function(object, visitor, master) {
     var parent;

@@ -2,7 +2,7 @@ var fs = require('fs');
 var mkdirp = require('mkdirp');
 var esprima = require('esprima');
 var escodegen = require('escodegen');
-var functionExtractor = require("./function-parser");
+var functionExtractor = require("./libs/function-parser");
 var _ = require('underscore');
 var walk = require('esprima-walk').walkAddParent;
 
@@ -45,8 +45,6 @@ function evaluateFile(inputPath) {
     var classObjects = extractClasses(code);
 
     for(var className in classObjects) {
-        // console.log(className);
-        // code = classObjects[className];
         classObjects[className];
     }
 
@@ -58,26 +56,13 @@ function evaluateFile(inputPath) {
         functionNode.id = {name: namedFunctions[i].name};
 
         var filePath = functionNode.namespace.split('.').join('/') + '/' + namedFunctions[i].name;
-        // console.log(filePath);
         extractedFunctions[filePath] = escodegen.generate(functionNode);//file.substring(funcs[i].range[0], funcs[i].range[1]);
-        // console.log(functionNode.id.name);
-
-        // var importsAndFunctionsParsedAsString = prependImportStatements(functionNode, namedFunctions, false);
-        // output[filePath] = importsAndFunctionsParsedAsString;//file.substring(funcs[i].range[0], funcs[i].range[1]);
     }
 
     extractedFunctions = extend(extractedFunctions, classObjects);
 
-    // for(var key in merged) {
-    //     console.log(key, typeof(merged[key]));
-    // }
-
     for(var key in extractedFunctions) {
-        // extractedFunctions[key] = appendRootExport(importReferencedFunctions(replaceDuplicateFunctionDeclarations(extractedFunctions[key], namedFunctions), namedFunctions, './' + key), key);
         extractedFunctions[key] = appendRootExport(importReferencedFunctions(extractedFunctions[key], namedFunctions, './' + key), key);
-        // }
-        //
-        // for(var key in extractedFunctions) {
 
         var array = key.split('/');
         array.pop();
@@ -87,7 +72,7 @@ function evaluateFile(inputPath) {
 
         mkdirp.sync('./output/' + dirs.join('/'));//, function(err) {
 
-        fs.writeFileSync('./output/' + currPath + '.json', JSON.stringify(esprima.parse(formatHTML(extractedFunctions[key]),{
+        fs.writeFileSync('./output/' + currPath + '.json', JSON.stringify(esprima.parse(formatHTML(extractedFunctions[key]), {
             sourceType: 'module'
         }), null, 2));
         fs.writeFileSync('./output/' + currPath + '.js', formatHTML(extractedFunctions[key]));
@@ -95,7 +80,6 @@ function evaluateFile(inputPath) {
 
     var outputFilepath = './output/' + inputPath.split('/').pop();
 
-    // var outputCode = formatHTML(replaceDuplicateFunctionDeclarations(prependImportStatements(code, namedFunctions, true), namedFunctions));
     var outputCode = formatHTML(importReferencedFunctions(replaceDuplicateFunctionDeclarations(escodegen.generate(code), namedFunctions), namedFunctions, './'));
     fs.writeFileSync(outputFilepath, outputCode);
 
@@ -104,9 +88,4 @@ function evaluateFile(inputPath) {
         range: true,
         sourceType: 'module'
     }), null, 2));
-
-    //fs.writeFileSync('./optimised.js', escodegen.generate(code));
-    // var modulify = require('modulify');
-    // var result = modulify.file('./script_results.js');
-    // console.log(result);
 }
