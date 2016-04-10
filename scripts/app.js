@@ -7,7 +7,7 @@ var _ = require('underscore');
 var walk = require('esprima-walk').walkAddParent;
 
 var replaceDuplicateFunctionDeclarations = require('./libs/removeFunctions');
-var formatHTML = require('./libs/formatCode');
+var formatHTML = require('./libs/format');
 var importReferencedFunctions = require('./libs/generateImports');
 var extractClasses = require('./libs/extractClasses');
 
