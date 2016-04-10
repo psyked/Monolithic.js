@@ -1,0 +1,6 @@
+{
+  "name": "Monolithic.js",
+  "tagline": "Breaking down that horrible legacy Javascript code.",
+  "body": "### Goal\r\nDealing with legacy code is not nice, and the process of updating it to modern standards is often laborious. Monolithic.js is a project which strives to automate as much of this upgrade process as possible whilst maintaining a functional output.",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
